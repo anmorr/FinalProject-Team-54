@@ -7,7 +7,7 @@ import edu.upenn.cit594.datamanagement.Reader;
  * @author anmorr and ryanng
  *
  */
-public abstract class Processor {
+public class Processor {
 	
 	protected Reader reader;
 	
@@ -15,6 +15,9 @@ public abstract class Processor {
 		reader = createReader();
 	}
 	
-	protected abstract Reader createReader();
+	protected Reader createReader() {
+		return reader;
+		
+	}
 
 }
