@@ -4,7 +4,7 @@ package edu.upenn.cit594.data;
  * @author anmorr and ryanng
  *
  */
-public class PropertyValue {
+public class PropertyValue extends Data {
 	
 	
 	protected Double marketValue;
