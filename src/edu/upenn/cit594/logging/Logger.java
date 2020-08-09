@@ -43,7 +43,7 @@ public class Logger {
 	 * @param msg2
 	 */
 	public void log(String msg1, String msg2) {
-		out.printf("%-20s %s\n", msg1, msg2);
+		out.printf(System.currentTimeMillis() + "%-20s %s\n", msg1, msg2);
 	}
 
 }
