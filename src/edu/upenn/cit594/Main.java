@@ -102,6 +102,11 @@ public class Main {
 		
 		CommandLineUserInterface ui = new CommandLineUserInterface(processor);
 		
+		Logger instance = Logger.getInstance();
+		String arguments = parkingViolationFileType + " " + parkingViolationFileName + " " + propertyValueFileName
+				+ " " + populationFileName + " " + logfileName;
+		instance.log(arguments);
+		
 		ui.start();
 	}
 

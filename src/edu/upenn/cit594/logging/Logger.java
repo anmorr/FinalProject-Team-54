@@ -1,7 +1,9 @@
 package edu.upenn.cit594.logging;
 
 
+import java.io.FileOutputStream;
 import java.io.PrintStream;
+import java.util.Date;
 
 public class Logger {
 	
@@ -15,7 +17,7 @@ public class Logger {
 	 */
 	private Logger(String filename) {
 		try {
-			out = new PrintStream(filename);
+			out = new PrintStream(new FileOutputStream(filename, true));
 		} catch (Exception e) {
 			
 		}
@@ -42,8 +44,9 @@ public class Logger {
 	 * @param msg1
 	 * @param msg2
 	 */
-	public void log(String msg1, String msg2) {
-		out.printf(System.currentTimeMillis() + "%-20s %s\n", msg1, msg2);
+	public void log(String inputMsg) {
+		Date msg1 = new java.util.Date(System.currentTimeMillis());
+		out.printf("%-20s %s\n", msg1, inputMsg);
 	}
 
 }
