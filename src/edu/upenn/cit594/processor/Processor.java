@@ -35,7 +35,7 @@ public class Processor {
 	 * @params none
 	 */
 	public void totalPopulationForAllZipCodes() {
-		
+		System.out.println("totalPopulationForAllZipCodes");
 	}
 	
 	/**
@@ -44,22 +44,40 @@ public class Processor {
 	 * @param none
 	 */
 	public void totalFinesPerCapita() {
-		
+		System.out.println("totalFinesPerCapita");
 	}
 	
+	/**
+	 * Displays the average market value 
+	 * ZIP code.
+	 * @param none
+	 */
 	public void averageMarketValue() {
-		
+		System.out.println("averageMarketValue");
 	}
 	
+	/**
+	 * Displays the average total livable area.
+	 * @param none
+	 */
 	public void averageTotalLiveableArea() {
-		
+		System.out.println("averageTotalLiveableArea");
 	}
 	
+	/**
+	 * Displays the total residential market value
+	 * per capita.
+	 * @param none
+	 */
 	public void totalResidentialMarketValuePerCapita() {
-		
+		System.out.println("totalResidentialMarketValuePerCapita");
 	}
 	
+	/**
+	 * Displays the custom feature.
+	 * @param none
+	 */
 	public void customFeature() {
-		
+		System.out.println("customFeature");
 	}
 }
