@@ -60,10 +60,17 @@ public class Main {
 	
 	public static void main(String[] args) {
 
+		
+		
 		if(args.length < 5) {
 			System.out.println("Usage: Incorrect number of arguments submitted.");
 			System.exit(0);
 		}
+		
+		// Initialize the logfile
+		logfileName = args[4];
+		Logger.initialize(logfileName);
+		Logger instance = Logger.getInstance();
 		
 		parkingViolationFileType = args[0].toLowerCase();
 		if(parkingViolationFileType.contentEquals("json")) {
@@ -94,15 +101,12 @@ public class Main {
 		}
 		populationReader = new TSVPopulationFileReader(populationFileName);
 		
-		// Initialize the logfile
-		logfileName = args[4];
-		Logger.initialize(logfileName);
+		
 		
 		processor = new Processor(parkingViolationReader, propertyValueReader, populationReader);
 		
 		CommandLineUserInterface ui = new CommandLineUserInterface(processor);
 		
-		Logger instance = Logger.getInstance();
 		String arguments = parkingViolationFileType + " " + parkingViolationFileName + " " + propertyValueFileName
 				+ " " + populationFileName + " " + logfileName;
 		instance.log(arguments);

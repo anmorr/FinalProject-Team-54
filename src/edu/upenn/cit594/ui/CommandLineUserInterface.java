@@ -57,10 +57,6 @@ public class CommandLineUserInterface {
 		
 	}
 
-	private void doCustomFeature() {
-		// TODO Auto-generated method stub
-		
-	}
 
 	private void doTotalResidentialMarketValuePerCapita() {
 		// TODO Auto-generated method stub
@@ -83,6 +79,11 @@ public class CommandLineUserInterface {
 	}
 
 	private void doTotalPopulationForAllZipCodes() {
+		// TODO Auto-generated method stub
+		
+	}
+	
+	private void doCustomFeature() {
 		// TODO Auto-generated method stub
 		
 	}
