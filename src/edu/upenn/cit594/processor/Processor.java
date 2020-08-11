@@ -3,6 +3,7 @@ package edu.upenn.cit594.processor;
 import java.util.List;
 
 import edu.upenn.cit594.data.Data;
+import edu.upenn.cit594.data.Population;
 import edu.upenn.cit594.datamanagement.*;
 
 /**
@@ -34,8 +35,17 @@ public class Processor {
 	 * ZIP codes in the population file.
 	 * @params none
 	 */
-	public void totalPopulationForAllZipCodes() {
+	public int totalPopulationForAllZipCodes() {
 		System.out.println("totalPopulationForAllZipCodes");
+		
+		int totalPopulation;
+		
+		for (Population population : populationData) {
+			totalPopulation += population.getPopulation();
+		}
+		
+		return totalPopulation;
+		
 	}
 	
 	/**
