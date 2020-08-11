@@ -38,10 +38,10 @@ public class Processor {
 	public int totalPopulationForAllZipCodes() {
 		System.out.println("totalPopulationForAllZipCodes");
 		
-		int totalPopulation;
+		int totalPopulation = 0;
 		
-		for (Population population : populationData) {
-			totalPopulation += population.getPopulation();
+		for (Data population : populationData) {
+			totalPopulation += Integer.parseInt(((Population) population).getPopulation());
 		}
 		
 		return totalPopulation;
