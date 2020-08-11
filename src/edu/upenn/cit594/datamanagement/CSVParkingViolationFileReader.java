@@ -4,13 +4,13 @@ import java.util.List;
 
 import edu.upenn.cit594.data.Data;
 
-public class CSVPopulationFileReader implements Reader {
+public class CSVParkingViolationFileReader implements Reader {
 	
 	String filename;
 	
 	
 
-	public CSVPopulationFileReader(String filename) {
+	public CSVParkingViolationFileReader(String filename) {
 		this.filename = filename;
 	}
 

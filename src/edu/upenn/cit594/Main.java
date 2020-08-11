@@ -2,7 +2,7 @@ package edu.upenn.cit594;
 
 import java.io.File;
 
-import edu.upenn.cit594.datamanagement.CSVPopulationFileReader;
+import edu.upenn.cit594.datamanagement.CSVParkingViolationFileReader;
 import edu.upenn.cit594.datamanagement.CSVPropertyValueFileReader;
 import edu.upenn.cit594.datamanagement.JSONParkingViolationFileReader;
 import edu.upenn.cit594.datamanagement.Reader;
@@ -84,7 +84,7 @@ public class Main {
 			if(!checkFile(parkingViolationFileName)){
 				usage(2);
 			}
-			parkingViolationReader = new CSVPopulationFileReader(parkingViolationFileName);
+			parkingViolationReader = new CSVParkingViolationFileReader(parkingViolationFileName);
 		}else {
 			usage(1);
 		}

@@ -12,7 +12,7 @@ import edu.upenn.cit594.datamanagement.*;
  */
 public class Processor {
 	
-	protected Reader parkingFileReader;
+	protected Reader parkingViolationsFileReader;
 	protected List<Data> parkingViolations;
 	protected Reader CSVPropertyValueReader;
 	protected List<Data> propertyValues;
@@ -21,7 +21,7 @@ public class Processor {
 	
 	public Processor(Reader parkingViolationReader, Reader propertyValueReader,
 			Reader populationReader) {
-		this.parkingFileReader = parkingViolationReader;
+		this.parkingViolationsFileReader = parkingViolationReader;
 		parkingViolations = parkingViolationReader.read();
 		this.CSVPropertyValueReader = propertyValueReader;
 		propertyValues = CSVPropertyValueReader.read();
