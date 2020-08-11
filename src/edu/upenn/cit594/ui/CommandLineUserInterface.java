@@ -49,6 +49,10 @@ public class CommandLineUserInterface {
 		else if (choice == 6) {
 			doCustomFeature();
 		}
+		else if (choice == 0) {
+			System.out.println("Bye...");
+			System.exit(0);
+		}
 		else {
 			System.out.println("Usage Error: Please choose one of the specified options.");
 			System.out.println("Bye...");
