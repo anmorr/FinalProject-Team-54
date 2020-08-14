@@ -18,77 +18,90 @@ public class CommandLineUserInterface {
 
 	public void start() {
 		// TODO Auto-generated method stub
-		
-		System.out.println("Enter 1 : Total population for all ZIP codes.");
-		System.out.println("Enter 2 : Total parking fines per capita for each ZIP code.");
-		System.out.println("Enter 3 : Average market value for residences in a specified ZIP code.");
-		System.out.println("Enter 4 : Average total livable area for residences in a specified ZIP code.");
-		System.out.println("Enter 5 : Total residential market value per capita for a specified ZIP code.");
-		System.out.println("Enter 6 : For custome feature [yet to be implemented]");
-		System.out.println("Enter 0 : Exit");
-		
-		System.out.println("\nChoice: ");
-		
-		int choice = in.nextInt();
-		
-		if (choice == 1) {
-			doTotalPopulationForAllZipCodes();
-		}
-		else if (choice == 2) {
-			doTotalFinesPerCapita();
-		}
-		else if (choice == 3) {
-			doAverageMarketValue();
-		}
-		else if (choice == 4) {
-			doAverageTotalLiveableArea();
-		}
-		else if (choice == 5) {
-			doTotalResidentialMarketValuePerCapita();
-		}
-		else if (choice == 6) {
-			doCustomFeature();
-		}
-		else if (choice == 0) {
-			System.out.println("Bye...");
-			System.exit(0);
-		}
-		else {
-			System.out.println("Usage Error: Please choose one of the specified options.");
-			System.out.println("Bye...");
-			System.exit(0);
+		while (true) {
+			System.out.println("Enter 1 : Total population for all ZIP codes.");
+			System.out.println("Enter 2 : Total parking fines per capita for each ZIP code.");
+			System.out.println("Enter 3 : Average market value for residences in a specified ZIP code.");
+			System.out.println("Enter 4 : Average total livable area for residences in a specified ZIP code.");
+			System.out.println("Enter 5 : Total residential market value per capita for a specified ZIP code.");
+			System.out.println("Enter 6 : For custome feature [yet to be implemented]");
+			System.out.println("Enter 0 : Exit");
+			
+			System.out.println("\nChoice: ");
+			
+			int choice = in.nextInt();
+			
+			if (choice == 1) {
+				doTotalPopulationForAllZipCodes();
+			}
+			else if (choice == 2) {
+				doTotalFinesPerCapita();
+			}
+			else if (choice == 3) {
+				Scanner input1 = new Scanner(System.in);
+//				System.out.println("Please enter a ZIP code: ");
+				String zipCode = input1.next().trim();
+//				System.out.println("DEBUG zipCode:" +  zipCode);
+				System.out.println(doAverageMarketValue(zipCode));
+			}
+			else if (choice == 4) {
+				Scanner input2 = new Scanner(System.in);
+				System.out.println("Please enter a ZIP code: ");
+				String zipCode = input2.next().trim();
+				System.out.println(doAverageTotalLiveableArea(zipCode));
+//				input2.close();
+			}
+			else if (choice == 5) {
+				Scanner input3 = new Scanner(System.in);
+				System.out.println("Please enter a ZIP code: ");
+				String zipCode = input3.next().trim();
+				System.out.println(doTotalResidentialMarketValuePerCapita(zipCode));
+				
+			}
+			else if (choice == 6) {
+				doCustomFeature();
+			}
+			else if (choice == 0) {
+				System.out.println("Bye...");
+				System.exit(0);
+			}
+			else {
+				System.out.println("Usage Error: Please choose one of the specified options.");
+				System.out.println("Bye...");
+				System.exit(0);
+			}
 		}
 		
 	}
 
 
-	private void doTotalResidentialMarketValuePerCapita() {
-		// TODO Auto-generated method stub
+	private int doTotalResidentialMarketValuePerCapita(String zipCode) {
+		return processor.totalResidentialMarketValuePerCapita(zipCode);
 		
 	}
 
-	private void doAverageTotalLiveableArea() {
-		// TODO Auto-generated method stub
+	private int doAverageTotalLiveableArea(String zipCode) {
+		return processor.averageTotalLiveableArea(zipCode);
 		
 	}
 
-	private void doAverageMarketValue() {
-		// TODO Auto-generated method stub
+	private int doAverageMarketValue(String zipCode) {
+		return processor.averageMarketValue(zipCode);
 		
 	}
 
 	private void doTotalFinesPerCapita() {
-		// TODO Auto-generated method stub
+		processor.totalFinesPerCapita();
 		
 	}
 
 	private void doTotalPopulationForAllZipCodes() {
-		// TODO Auto-generated method stub
+		System.out.println(processor.totalPopulationForAllZipCodes());
 		
 	}
 	
 	private void doCustomFeature() {
-		// TODO Auto-generated method stub
+		processor.customFeature();
 		
 	}
 	

@@ -21,23 +21,31 @@ public class CSVParkingViolationFileReader implements Reader {
 	public List<Data> read() {
 		List<Data> parkingViolationList = new ArrayList<Data>();
 		Scanner fileReader = null;
+		int counter = 0;
 		try {
 			fileReader = new Scanner(new File(filename));
-			while (fileReader.hasNextLine()) {
+			while (fileReader.hasNext()) {
 				String eachViolation = fileReader.nextLine();
 				String[] violationComponents = eachViolation.split(",");
 				String timeStamp = violationComponents[0];
-				double fineAssessed = Double.parseDouble(violationComponents[1]);
+				Double fineAssessed = Double.parseDouble(violationComponents[1]);
 				String description = violationComponents[2];
 				String vehicleID = violationComponents[3];
 				String vehicleState = violationComponents[4];
 				String violationID = violationComponents[5];
-				String zipCode = violationComponents[6];
+				String zipCode;
+				if(violationComponents.length == 7) {
+					zipCode = violationComponents[6];
+				}else {
+					zipCode = "";
+				}
 				parkingViolationList.add(new ParkingViolation(timeStamp, fineAssessed, description, vehicleID, vehicleState, violationID, zipCode));
-
+				
+				counter++;
 			}
 		} catch (Exception e) {
-			System.out.println("Invalid Parking Violtions CSV Input File");
+			System.out.println("DEBUG Last Line Read: " + counter);
+			System.out.println("Invalid Parking Violations CSV Input File");
 			System.exit(0);
 			throw new IllegalStateException(e);
 

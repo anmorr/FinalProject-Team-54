@@ -7,18 +7,18 @@ package edu.upenn.cit594.data;
 public class Population extends Data {
 	
 	protected String zipCode;
-	protected String population;
+	protected Integer population;
 	
-	public Population(String zipCode, String population) {
+	public Population(String zipCode, Integer population2) {
 		this.zipCode = zipCode;
-		this.population = population;
+		this.population = population2;
 	}
 
 	public String getZipCode() {
 		return zipCode;
 	}
 
-	public String getPopulation() {
+	public Integer getPopulation() {
 		return population;
 	}
 
