@@ -4,7 +4,7 @@ package edu.upenn.cit594.data;
  * @author anmorr and ryanng
  *
  */
-public class ParkingViolation extends Data {
+public class ParkingViolation {
 	
 	protected String timeStamp;
 	protected Double fineAssessed;

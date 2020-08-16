@@ -2,10 +2,8 @@ package edu.upenn.cit594.datamanagement;
 
 import java.util.List;
 
-import edu.upenn.cit594.data.Data;
-
-public interface Reader {
+public interface Reader<T> {
 	
-	public List<Data> read();
+	public List<T> read();
 
 }

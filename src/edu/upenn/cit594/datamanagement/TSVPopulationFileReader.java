@@ -2,17 +2,16 @@ package edu.upenn.cit594.datamanagement;
 
 import java.io.File;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.Scanner;
 
-import edu.upenn.cit594.data.Data;
 import edu.upenn.cit594.data.Population;
+import edu.upenn.cit594.logging.Logger;
 
-public class TSVPopulationFileReader implements Reader {
+public class TSVPopulationFileReader implements Reader<Population> {
 
 	String filename;
+	Logger logInstance = Logger.getInstance();
 	
 	
 	
@@ -21,12 +20,14 @@ public class TSVPopulationFileReader implements Reader {
 	}
 
 	@Override
-	public List<Data> read() {
-		List<Data> populations = new ArrayList<Data>();
+	public List<Population> read() {
+		List<Population> populations = new ArrayList<Population>();
 		Scanner in = null;
 		
 		try {
 			in = new Scanner(new File(filename));
+			logInstance.log("Opened: " + filename);
+			
 			while(in.hasNext()) {
 				String[] currentLine = in.nextLine().split(" ");
 				String zipCode = currentLine[0];

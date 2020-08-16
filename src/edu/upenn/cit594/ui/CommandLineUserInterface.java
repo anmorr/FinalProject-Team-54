@@ -1,13 +1,16 @@
 package edu.upenn.cit594.ui;
 
+import java.util.Map;
 import java.util.Scanner;
 
+import edu.upenn.cit594.logging.Logger;
 import edu.upenn.cit594.processor.Processor;
 
 public class CommandLineUserInterface {
 	
 	protected Processor processor;
 	protected Scanner in;
+	protected Logger logInstance = Logger.getInstance();
 
 	public CommandLineUserInterface(Processor processor) {
 		
@@ -31,6 +34,8 @@ public class CommandLineUserInterface {
 			
 			int choice = in.nextInt();
 			
+			Logger.getInstance().log("Choice: " + choice);
+			
 			if (choice == 1) {
 				doTotalPopulationForAllZipCodes();
 			}
@@ -39,15 +44,16 @@ public class CommandLineUserInterface {
 			}
 			else if (choice == 3) {
 				Scanner input1 = new Scanner(System.in);
-//				System.out.println("Please enter a ZIP code: ");
+				System.out.println("Please enter a ZIP code: ");
 				String zipCode = input1.next().trim();
-//				System.out.println("DEBUG zipCode:" +  zipCode);
+				logInstance.log("ZipCode: " + zipCode);
 				System.out.println(doAverageMarketValue(zipCode));
 			}
 			else if (choice == 4) {
 				Scanner input2 = new Scanner(System.in);
 				System.out.println("Please enter a ZIP code: ");
 				String zipCode = input2.next().trim();
+				logInstance.log("ZipCode: " + zipCode);
 				System.out.println(doAverageTotalLiveableArea(zipCode));
 //				input2.close();
 			}
@@ -55,11 +61,16 @@ public class CommandLineUserInterface {
 				Scanner input3 = new Scanner(System.in);
 				System.out.println("Please enter a ZIP code: ");
 				String zipCode = input3.next().trim();
+				logInstance.log("ZipCode: " + zipCode);
 				System.out.println(doTotalResidentialMarketValuePerCapita(zipCode));
 				
 			}
 			else if (choice == 6) {
-				doCustomFeature();
+				Scanner input4 = new Scanner(System.in);
+				System.out.println("Please enter a ZIP code: ");
+				String zipCode = input4.next().trim();
+				logInstance.log("ZipCode: " + zipCode);
+				System.out.println(doCustomFeature(zipCode));
 			}
 			else if (choice == 0) {
 				System.out.println("Bye...");
@@ -91,8 +102,11 @@ public class CommandLineUserInterface {
 	}
 
 	private void doTotalFinesPerCapita() {
-		processor.totalFinesPerCapita();
-		
+		Map<String, Double> zipToFinesPerCapita = processor.totalFinesPerCapita();
+		for(String zipCode : zipToFinesPerCapita.keySet()) {
+			System.out.printf("%s %.04f\n", zipCode, zipToFinesPerCapita.get(zipCode));
+		}
+		System.out.println();
 	}
 
 	private void doTotalPopulationForAllZipCodes() {
@@ -100,8 +114,8 @@ public class CommandLineUserInterface {
 		
 	}
 	
-	private void doCustomFeature() {
-		processor.customFeature();
+	private Double doCustomFeature(String zipCode) {
+		return processor.customFeature(zipCode);
 		
 	}
 	

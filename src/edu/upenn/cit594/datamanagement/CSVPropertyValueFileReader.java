@@ -5,12 +5,13 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-import edu.upenn.cit594.data.Data;
-import edu.upenn.cit594.data.PropertyData;
+import edu.upenn.cit594.data.Property;
+import edu.upenn.cit594.logging.Logger;
 
-public class CSVPropertyValueFileReader implements Reader {
+public class CSVPropertyValueFileReader implements Reader<Property> {
 
 	protected String filename;
+	Logger logInstance = Logger.getInstance();
 	
 	
 	
@@ -21,9 +22,9 @@ public class CSVPropertyValueFileReader implements Reader {
 
 
 	@Override
-	public List<Data> read() {
+	public List<Property> read() {
 		// TODO Auto-generated method stub
-		List<Data> propertyData = new ArrayList<Data>();
+		List<Property> propertyData = new ArrayList<Property>();
 		Scanner in = null;
 		
 		boolean firstLine = true;
@@ -34,66 +35,66 @@ public class CSVPropertyValueFileReader implements Reader {
 		int marketValueIndex = 0;
 		String marketValue = null;
 		int currentLineCount = 1;
+		final String regex = ",(?=([^\\\"]*\\\"[^\\\"]*\\\")*[^\\\"]*$)";
 		try {
 			in = new Scanner(new File(filename));
+			logInstance.log("Opened: " + filename);
 //			in.useDelimiter(",");
 			while(in.hasNext()) {
 				if(firstLine) {
 					firstLine = false;
 					String firstLineValue = in.nextLine();
-					String[] firstLineSplit = firstLineValue.split(",");
+					String[] firstLineSplit = firstLineValue.split(regex);
 					for(int i = 0; i < firstLineSplit.length; i++) {
 						String currentWord = firstLineSplit[i];
 //						System.out.println(currentWord);
 						if(currentWord.contentEquals("zip_code")) {
 							zipCodeIndex = i;
-							System.out.println("DEBUG: Zip Code Index: " + zipCodeIndex + " Expected: 72");
+//							System.out.println("DEBUG: ZIP Code Index: " + zipCodeIndex + " Expected: 72");
 						}
 						if(currentWord.contentEquals("total_livable_area")) {
 							totalLivableAreaIndex = i;
-							System.out.println("DEBUG: Total Livable Area Index: " + totalLivableAreaIndex +" Expected: 64" );
+//							System.out.println("DEBUG: Total Livable Area Index: " + totalLivableAreaIndex +" Expected: 64" );
 						}
 						if(currentWord.contentEquals("market_value")) {
 							marketValueIndex = i;
-							System.out.println("DEBUG: Market Value Index: " + marketValueIndex + " Expected: 34");
+//							System.out.println("DEBUG: Market Value Index: " + marketValueIndex + " Expected: 34");
 						} 							
 					}
 					continue;
 				}
 				
-				if(currentLineCount == 552 || currentLineCount == 861 || currentLineCount == 1292
-						|| currentLineCount == 1746) {
-					// Line 553 is broken 
-					in.nextLine();
-					currentLineCount++;
-					continue;
-				}
 				zipCode = null;
 				totalLivableArea = null;
 				marketValue = null;
 				currentLineCount++;
 				
 				String currentLine = in.nextLine();
-				String[] currentLineSplit = currentLine.split(",");
-				zipCode = currentLineSplit[zipCodeIndex].substring(0,5);
+				String[] currentLineSplit = currentLine.split(regex);
 				
-				
-				totalLivableArea = currentLineSplit[totalLivableAreaIndex];
-				marketValue = currentLineSplit[marketValueIndex];
-				
-				
-				
-				propertyData.add(new PropertyData(Double.parseDouble(marketValue), Double.parseDouble(totalLivableArea), zipCode));
-				/*
-				if(currentLineCount < 10) {
-					System.out.println(zipCode);
-					System.out.println(totalLivableArea);
+				zipCode = currentLineSplit[zipCodeIndex];
+				if(!zipCode.isEmpty() && (zipCode.length() >= 5)) {
+					zipCode = zipCode.substring(0,5);
 				}
-				*/
-				if(currentLineCount == 9) {
+						
+				totalLivableArea = currentLineSplit[totalLivableAreaIndex];
+				if(totalLivableArea.isEmpty()) {
+					totalLivableArea = null;
+				}
+				
+				marketValue = currentLineSplit[marketValueIndex];
+				if(marketValue.isEmpty()) {
+					marketValue = null;
+				}
+				
+				System.out.println("DEBUG Current Line Count : " + currentLineCount);
+
+				
+				propertyData.add(new Property(marketValue, totalLivableArea, zipCode));
+				
+				if(currentLineCount == 2000) {
 					break;
 				}
-				
 			}
 		}
 		catch (Exception e) {

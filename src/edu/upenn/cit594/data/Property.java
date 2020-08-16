@@ -4,24 +4,24 @@ package edu.upenn.cit594.data;
  * @author anmorr and ryanng
  *
  */
-public class PropertyData extends Data {
+public class Property {
 	
 	
-	protected Double marketValue;
-	protected Double totalLivableArea;
+	protected String marketValue;
+	protected String totalLivableArea;
 	protected String zipCode;
 	
-	public PropertyData(Double marketValue, Double totalLivableArea, String zipCode) {
+	public Property(String marketValue, String totalLivableArea, String zipCode) {
 		this.marketValue = marketValue;
 		this.totalLivableArea = totalLivableArea;
 		this.zipCode = zipCode;
 	}
 
-	public Double getMarketValue() {
+	public String getMarketValue() {
 		return marketValue;
 	}
 
-	public Double getTotalLivableArea() {
+	public String getTotalLivableArea() {
 		return totalLivableArea;
 	}
 

@@ -2,6 +2,9 @@ package edu.upenn.cit594;
 
 import java.io.File;
 
+import edu.upenn.cit594.data.ParkingViolation;
+import edu.upenn.cit594.data.Population;
+import edu.upenn.cit594.data.Property;
 import edu.upenn.cit594.datamanagement.CSVParkingViolationFileReader;
 import edu.upenn.cit594.datamanagement.CSVPropertyValueFileReader;
 import edu.upenn.cit594.datamanagement.JSONParkingViolationFileReader;
@@ -19,9 +22,9 @@ public class Main {
 	static String populationFileName = null;
 	static String logfileName = null;
 	
-	static Reader parkingViolationReader;
-	static Reader propertyValueReader;
-	static Reader populationReader;
+	static Reader<ParkingViolation> parkingViolationReader;
+	static Reader<Property> propertyValueReader;
+	static Reader<Population> populationReader;
 	
 	static Processor processor;
 	

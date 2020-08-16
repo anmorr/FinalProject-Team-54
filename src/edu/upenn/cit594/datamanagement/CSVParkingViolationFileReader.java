@@ -6,24 +6,26 @@ import java.util.List;
 import java.util.Scanner;
 
 
-import edu.upenn.cit594.data.Data;
 import edu.upenn.cit594.data.ParkingViolation;
+import edu.upenn.cit594.logging.Logger;
 
-public class CSVParkingViolationFileReader implements Reader {
+public class CSVParkingViolationFileReader implements Reader<ParkingViolation> {
 
 	String filename;
+	Logger logInstance = Logger.getInstance();
 
 	public CSVParkingViolationFileReader(String filename) {
 		this.filename = filename;
 	}
 
 	@Override
-	public List<Data> read() {
-		List<Data> parkingViolationList = new ArrayList<Data>();
+	public List<ParkingViolation> read() {
+		List<ParkingViolation> parkingViolationList = new ArrayList<ParkingViolation>();
 		Scanner fileReader = null;
 		int counter = 0;
 		try {
 			fileReader = new Scanner(new File(filename));
+			logInstance.log("Opened: " + filename);
 			while (fileReader.hasNext()) {
 				String eachViolation = fileReader.nextLine();
 				String[] violationComponents = eachViolation.split(",");

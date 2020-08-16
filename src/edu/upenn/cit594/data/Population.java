@@ -4,7 +4,7 @@ package edu.upenn.cit594.data;
  * @author anmorr and ryanng
  *
  */
-public class Population extends Data {
+public class Population {
 	
 	protected String zipCode;
 	protected Integer population;
