@@ -10,6 +10,7 @@ public class Logger {
 	
 	private PrintStream out;
 	private static Logger instance;
+	private static boolean fileNameSet = false;
 	
 	/**
 	 * 1. Private Constructor
@@ -18,7 +19,8 @@ public class Logger {
 	private Logger(String filename) {
 		try {
 			out = new PrintStream(new FileOutputStream(filename, true));
-		} catch (Exception e) {
+		} 
+		catch (Exception e) {
 			
 		}
 	}
@@ -28,7 +30,11 @@ public class Logger {
 	 * @param filename
 	 */
 	public static void initialize(String filename) {
-		Logger.instance = new Logger(filename);
+		
+		if(!fileNameSet) {
+			Logger.instance = new Logger(filename);
+			fileNameSet = true;
+		}
 	}
 	
 	/**

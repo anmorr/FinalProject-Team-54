@@ -27,7 +27,7 @@ public class CommandLineUserInterface {
 			System.out.println("Enter 3 : Average market value for residences in a specified ZIP code.");
 			System.out.println("Enter 4 : Average total livable area for residences in a specified ZIP code.");
 			System.out.println("Enter 5 : Total residential market value per capita for a specified ZIP code.");
-			System.out.println("Enter 6 : For custome feature [yet to be implemented]");
+			System.out.println("Enter 6 : Estimated fines per household.");
 			System.out.println("Enter 0 : Exit");
 			
 			System.out.println("\nChoice: ");

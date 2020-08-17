@@ -92,9 +92,9 @@ public class CSVPropertyValueFileReader implements Reader<Property> {
 				
 				propertyData.add(new Property(marketValue, totalLivableArea, zipCode));
 				
-				if(currentLineCount == 2000) {
-					break;
-				}
+//				if(currentLineCount == 2000) {
+//					break;
+//				}
 			}
 		}
 		catch (Exception e) {

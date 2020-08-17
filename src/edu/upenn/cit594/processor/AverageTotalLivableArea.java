@@ -28,13 +28,16 @@ public class AverageTotalLivableArea implements DataAverage {
 				catch (NumberFormatException e) {
 					continue;
 				}
+				catch (NullPointerException e) {
+					System.out.println("Property: " + property.getTotalLivableArea() + " Property Zip: " + 
+							property.getZipCode());
+					continue;
+				}
 				homeCount++;
 			}
 		}
 		if(homeCount > 0) {
 			averageTotalLiveableArea = liveableArea/homeCount;
-//			System.out.println("DEBUG averageTotalLiveableArea: " + 
-//			averageTotalLiveableArea);
 		}
 		return averageTotalLiveableArea;
 	}
