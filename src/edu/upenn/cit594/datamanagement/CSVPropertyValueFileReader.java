@@ -87,14 +87,14 @@ public class CSVPropertyValueFileReader implements Reader<Property> {
 					marketValue = null;
 				}
 				
-				System.out.println("DEBUG Current Line Count : " + currentLineCount);
+//				System.out.println("DEBUG Current Line Count : " + currentLineCount);
 
 				
 				propertyData.add(new Property(marketValue, totalLivableArea, zipCode));
 				
-//				if(currentLineCount == 2000) {
-//					break;
-//				}
+				if(currentLineCount == 2000) {
+					break;
+				}
 			}
 		}
 		catch (Exception e) {

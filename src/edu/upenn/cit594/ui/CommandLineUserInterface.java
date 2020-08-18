@@ -1,5 +1,7 @@
 package edu.upenn.cit594.ui;
 
+import java.math.RoundingMode;
+import java.text.DecimalFormat;
 import java.util.Map;
 import java.util.Scanner;
 
@@ -20,7 +22,6 @@ public class CommandLineUserInterface {
 	}
 
 	public void start() {
-		// TODO Auto-generated method stub
 		while (true) {
 			System.out.println("Enter 1 : Total population for all ZIP codes.");
 			System.out.println("Enter 2 : Total parking fines per capita for each ZIP code.");
@@ -102,9 +103,11 @@ public class CommandLineUserInterface {
 	}
 
 	private void doTotalFinesPerCapita() {
+		final DecimalFormat df = new DecimalFormat("0.0000");
+		df.setRoundingMode((RoundingMode.FLOOR));
 		Map<String, Double> zipToFinesPerCapita = processor.totalFinesPerCapita();
 		for(String zipCode : zipToFinesPerCapita.keySet()) {
-			System.out.printf("%s %.04f\n", zipCode, zipToFinesPerCapita.get(zipCode));
+			System.out.println(zipCode + " " + df.format(zipToFinesPerCapita.get(zipCode)));
 		}
 		System.out.println();
 	}
