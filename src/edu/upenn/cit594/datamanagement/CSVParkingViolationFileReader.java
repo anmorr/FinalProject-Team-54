@@ -8,7 +8,13 @@ import java.util.Scanner;
 
 import edu.upenn.cit594.data.ParkingViolation;
 import edu.upenn.cit594.logging.Logger;
-
+/**
+ * 
+ * @author anmorr and ryanng
+ * 
+ * Parking Violation CSV Reader
+ *
+ */
 public class CSVParkingViolationFileReader implements Reader<ParkingViolation> {
 
 	String filename;
@@ -25,7 +31,7 @@ public class CSVParkingViolationFileReader implements Reader<ParkingViolation> {
 		int counter = 0;
 		try {
 			fileReader = new Scanner(new File(filename));
-			logInstance.log("Opened: " + filename);
+			logInstance.log(filename);
 			while (fileReader.hasNext()) {
 				String eachViolation = fileReader.nextLine();
 				String[] violationComponents = eachViolation.split(",");
@@ -49,7 +55,6 @@ public class CSVParkingViolationFileReader implements Reader<ParkingViolation> {
 			System.out.println("DEBUG Last Line Read: " + counter);
 			System.out.println("Invalid Parking Violations CSV Input File");
 			System.exit(0);
-			throw new IllegalStateException(e);
 
 		} finally {
 			fileReader.close();

@@ -7,7 +7,13 @@ import java.util.Scanner;
 
 import edu.upenn.cit594.data.Property;
 import edu.upenn.cit594.logging.Logger;
-
+/**
+ * 
+ * @author anmorr and ryanng
+ * 
+ * Property Value CSV File Reader
+ *
+ */
 public class CSVPropertyValueFileReader implements Reader<Property> {
 
 	protected String filename;
@@ -23,7 +29,6 @@ public class CSVPropertyValueFileReader implements Reader<Property> {
 
 	@Override
 	public List<Property> read() {
-		// TODO Auto-generated method stub
 		List<Property> propertyData = new ArrayList<Property>();
 		Scanner in = null;
 		
@@ -38,8 +43,7 @@ public class CSVPropertyValueFileReader implements Reader<Property> {
 		final String regex = ",(?=([^\\\"]*\\\"[^\\\"]*\\\")*[^\\\"]*$)";
 		try {
 			in = new Scanner(new File(filename));
-			logInstance.log("Opened: " + filename);
-//			in.useDelimiter(",");
+			logInstance.log(filename);
 			while(in.hasNext()) {
 				if(firstLine) {
 					firstLine = false;
@@ -92,14 +96,18 @@ public class CSVPropertyValueFileReader implements Reader<Property> {
 				
 				propertyData.add(new Property(marketValue, totalLivableArea, zipCode));
 				
-				if(currentLineCount == 2000) {
-					break;
+				if((currentLineCount % 10000) == 0) {
+					System.out.println("Running...");
+					currentLineCount = 0;
 				}
+//				if(currentLineCount == 2000) {
+//					break;
+//				}
 			}
 		}
 		catch (Exception e) {
-			System.out.println("Zip Code: " + zipCode + " Total Livable Area: " + totalLivableArea +  " Market Value: " + marketValue + " Current Line Count: " + currentLineCount);
-			throw new IllegalStateException(e);
+			System.out.println("Invalid Property File!");
+			System.exit(0);
 			
 		}
 		finally {

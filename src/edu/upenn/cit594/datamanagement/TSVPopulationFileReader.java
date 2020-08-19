@@ -8,6 +8,13 @@ import java.util.Scanner;
 import edu.upenn.cit594.data.Population;
 import edu.upenn.cit594.logging.Logger;
 
+/**
+ * 
+ * @author anmorr and ryanng
+ * 
+ * Population File Reader
+ *
+ */
 public class TSVPopulationFileReader implements Reader<Population> {
 
 	String filename;
@@ -26,7 +33,7 @@ public class TSVPopulationFileReader implements Reader<Population> {
 		
 		try {
 			in = new Scanner(new File(filename));
-			logInstance.log("Opened: " + filename);
+			logInstance.log(filename);
 			
 			while(in.hasNext()) {
 				String[] currentLine = in.nextLine().split(" ");
@@ -36,7 +43,8 @@ public class TSVPopulationFileReader implements Reader<Population> {
 			}
 		}
 		catch (Exception e) {
-			throw new IllegalStateException(e);
+			System.out.println("Invalid Population File");
+			System.exit(0);
 		}
 		finally {
 			in.close();

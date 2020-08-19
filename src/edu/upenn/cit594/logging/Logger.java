@@ -4,7 +4,15 @@ package edu.upenn.cit594.logging;
 import java.io.FileOutputStream;
 import java.io.PrintStream;
 import java.util.Date;
-
+/**
+ * 
+ * @author anmorr and ryanng
+ * 
+ * This is a Singleton logging class to
+ * provide logging services for this
+ * program.
+ *
+ */
 public class Logger {
 	
 	
@@ -21,7 +29,7 @@ public class Logger {
 			out = new PrintStream(new FileOutputStream(filename, true));
 		} 
 		catch (Exception e) {
-			
+			System.out.println("Unable to open or create log file.");
 		}
 	}
 	

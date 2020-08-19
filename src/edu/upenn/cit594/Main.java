@@ -75,43 +75,35 @@ public class Main {
 		Logger.initialize(logfileName);
 		Logger instance = Logger.getInstance();
 		
-		parkingViolationFileType = args[0].toLowerCase();
+		String arguments = args[0] + " " + args[1] + " " + args[2]
+				+ " " + args[3] + " " + args[4];
+		
+		parkingViolationFileType = args[0];
 		if(parkingViolationFileType.contentEquals("json")) {
 			parkingViolationFileName = args[1];
-			if(!checkFile(parkingViolationFileName)){
-				usage(2);
-			}
+
 			parkingViolationReader = new JSONParkingViolationFileReader(parkingViolationFileName);
 		} else if (parkingViolationFileType.contentEquals("csv")) {
 			parkingViolationFileName = args[1];
-			if(!checkFile(parkingViolationFileName)){
-				usage(2);
-			}
+
 			parkingViolationReader = new CSVParkingViolationFileReader(parkingViolationFileName);
 		}else {
 			usage(1);
 		}
 		
 		propertyValueFileName = args[2];
-		if(!checkFile(propertyValueFileName)) {
-			usage(2);
-		}
+		
 		propertyValueReader = new CSVPropertyValueFileReader(propertyValueFileName);
 		
 		populationFileName = args[3];
-		if(!checkFile(populationFileName)) {
-			usage(2);
-		}
+		
 		populationReader = new TSVPopulationFileReader(populationFileName);
-		
-		
 		
 		processor = new Processor(parkingViolationReader, propertyValueReader, populationReader);
 		
 		CommandLineUserInterface ui = new CommandLineUserInterface(processor);
 		
-		String arguments = parkingViolationFileType + " " + parkingViolationFileName + " " + propertyValueFileName
-				+ " " + populationFileName + " " + logfileName;
+		
 		instance.log(arguments);
 		
 		ui.start();

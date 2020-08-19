@@ -7,7 +7,13 @@ import java.util.Scanner;
 
 import edu.upenn.cit594.logging.Logger;
 import edu.upenn.cit594.processor.Processor;
-
+/**
+ * 
+ * @author ryanng and anmorr
+ * 
+ * This class handles all user interaction
+ *
+ */
 public class CommandLineUserInterface {
 	
 	protected Processor processor;
@@ -33,24 +39,25 @@ public class CommandLineUserInterface {
 			
 			System.out.println("\nChoice: ");
 			
-			int choice = in.nextInt();
+			String choice = in.nextLine();
+			
 			
 			Logger.getInstance().log("Choice: " + choice);
 			
-			if (choice == 1) {
+			if (choice.contentEquals("1")) {
 				doTotalPopulationForAllZipCodes();
 			}
-			else if (choice == 2) {
+			else if (choice.contentEquals("2")) {
 				doTotalFinesPerCapita();
 			}
-			else if (choice == 3) {
+			else if (choice.contentEquals("3")) {
 				Scanner input1 = new Scanner(System.in);
 				System.out.println("Please enter a ZIP code: ");
 				String zipCode = input1.next().trim();
 				logInstance.log("ZipCode: " + zipCode);
 				System.out.println(doAverageMarketValue(zipCode));
 			}
-			else if (choice == 4) {
+			else if (choice.contentEquals("4")) {
 				Scanner input2 = new Scanner(System.in);
 				System.out.println("Please enter a ZIP code: ");
 				String zipCode = input2.next().trim();
@@ -58,7 +65,7 @@ public class CommandLineUserInterface {
 				System.out.println(doAverageTotalLiveableArea(zipCode));
 //				input2.close();
 			}
-			else if (choice == 5) {
+			else if (choice.contentEquals("5")) {
 				Scanner input3 = new Scanner(System.in);
 				System.out.println("Please enter a ZIP code: ");
 				String zipCode = input3.next().trim();
@@ -66,14 +73,14 @@ public class CommandLineUserInterface {
 				System.out.println(doTotalResidentialMarketValuePerCapita(zipCode));
 				
 			}
-			else if (choice == 6) {
+			else if (choice.contentEquals("6")) {
 				Scanner input4 = new Scanner(System.in);
 				System.out.println("Please enter a ZIP code: ");
 				String zipCode = input4.next().trim();
 				logInstance.log("ZipCode: " + zipCode);
-				System.out.println(doCustomFeature(zipCode));
+				doCustomFeature(zipCode);
 			}
-			else if (choice == 0) {
+			else if (choice.contentEquals("0")) {
 				System.out.println("Bye...");
 				System.exit(0);
 			}
@@ -83,9 +90,7 @@ public class CommandLineUserInterface {
 				System.exit(0);
 			}
 		}
-		
 	}
-
 
 	private int doTotalResidentialMarketValuePerCapita(String zipCode) {
 		return processor.totalResidentialMarketValuePerCapita(zipCode);
@@ -117,11 +122,13 @@ public class CommandLineUserInterface {
 		
 	}
 	
-	private Double doCustomFeature(String zipCode) {
-		return processor.customFeature(zipCode);
+	private void doCustomFeature(String zipCode) {
 		
+		double percentageOfFinesToTotalMarketValue = processor.customFeature(zipCode);
+		final DecimalFormat df = new DecimalFormat("0.00");
+		df.setRoundingMode((RoundingMode.FLOOR));
+		System.out.println("The percentage of total fines paid relative to total market value for " + zipCode + 
+				": " + df.format(percentageOfFinesToTotalMarketValue));
+		System.out.println();
 	}
-	
-	
-
 }

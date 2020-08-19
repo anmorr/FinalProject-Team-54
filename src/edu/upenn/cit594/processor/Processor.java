@@ -14,6 +14,9 @@ import edu.upenn.cit594.datamanagement.*;
  * 
  * @authors anmorr and ryanng
  *
+ * This class handles all processing for the
+ * program.
+ * 
  */
 public class Processor {
 	
@@ -26,6 +29,8 @@ public class Processor {
 	protected Map<String, Integer> totalResidentialMarketValueMap = new HashMap<String, Integer>();
 	protected Map<String, Integer> averageTotalLivableAreaMap = new HashMap<String, Integer>();
 	protected Map<String, Double> esitmatedFinesPerHouseholdMap = new HashMap<String, Double>();
+	protected Map<String, Double> percentageOfFinesToTotalMarketValueMap = new HashMap<String, Double>();
+	
 	
 	public Processor(Reader<ParkingViolation> parkingViolationReader, Reader<Property> propertyReader,
 			Reader<Population> populationReader) {
@@ -51,10 +56,10 @@ public class Processor {
 	 * for a given ZIP code.
 	 * @param String zipCode
 	 */
-	private Integer[] getPropertyInfoByZipCode(String zipCode) {
-		int homeValues = 0;
-		int homeCount = 0;
-		Integer[] homeInfo = new Integer[2];
+	private Double[] getPropertyInfoByZipCode(String zipCode) {
+		double homeValues = 0;
+		double homeCount = 0;
+		Double[] homeInfo = new Double[2];
 		for (Property property : propertyData) {
 			if((property.getZipCode() == null) || (property.getZipCode().isEmpty())) {
 				continue;
@@ -165,7 +170,7 @@ public class Processor {
 	 */
 	public int averageMarketValue(String zipCode) {
 		if(averageMarketValueMap.containsKey(zipCode)) {
-			System.out.println("Found using memoization");
+//			System.out.println("Found using memoization");
 			return averageMarketValueMap.get(zipCode);
 		}
 		int averageMarketValue = 0;
@@ -205,16 +210,16 @@ public class Processor {
 			return totalResidentialMarketValueMap.get(zipCode);
 		}
 		
-		Integer[] homeInfo = getPropertyInfoByZipCode(zipCode);
-		int homeValues = homeInfo[0];
-		int populationCount = populationToZip.get(zipCode);
+		Double[] homeInfo = getPropertyInfoByZipCode(zipCode);
+		double homeValues = homeInfo[0];
+		double populationCount = populationToZip.get(zipCode);
 		int totalMarketValuePerCapita = 0;
 		
 		if(populationCount > 0) {
 //			System.out.println("DEBUG Home Value: " + homeValues);
 //			System.out.println("DEBUG Population: " + populationCount);
 			
-			totalMarketValuePerCapita = homeValues/populationCount;
+			totalMarketValuePerCapita =  (int) (homeValues/populationCount);
 //			System.out.println(totalMarketValuePerCapita);
 		}
 		totalResidentialMarketValueMap.put(zipCode, totalMarketValuePerCapita);
@@ -223,67 +228,38 @@ public class Processor {
 	
 	/**
 	 * Displays the custom feature.
-	 * @param none
+	 * @param String zipCode
 	 */
 	public Double customFeature(String zipCode) {
 		
-		if(esitmatedFinesPerHouseholdMap.containsKey(zipCode)) {
-			System.out.println("Found using memoization");
-			return esitmatedFinesPerHouseholdMap.get(zipCode);
+		if(percentageOfFinesToTotalMarketValueMap.containsKey(zipCode)) {
+			return percentageOfFinesToTotalMarketValueMap.get(zipCode);
 		}
 		
-		int population = 0;
-		int homeCount = 0;
-		int populationToHomeCountAverage = 0;
-		Double totalFines = 0.0;
-		
-		if(populationToZip.containsKey(zipCode)) {
-			population = populationToZip.get(zipCode);
-		}
-		 
-		for (Property property : propertyData) {
-			if((property.getZipCode() == null) || (property.getZipCode().isEmpty())) {
-				continue;
-			}
-			if(property.getZipCode().contentEquals(zipCode)) {
-				homeCount++;
-			}
-		}
-		
-		if(homeCount != 0) {
-			populationToHomeCountAverage = population / homeCount;
-		}else{
-			return 0.0;
-		}
-		
+		double totalFines = 0.0;
+		double percentageOfFinesToTotalMarketValue = 0.0;
 		
 		
 		for (ParkingViolation violation : parkingViolations) {
-			ParkingViolation currentViolation = violation;
-			if(!currentViolation.getVehicleState().contains("PA")) {
+			if(!violation.getVehicleState().contains("PA")) {
 				continue;
 			}
-			if(currentViolation.getZipCode().isEmpty()) {
+			if((violation.getZipCode().isEmpty()) || (violation.getZipCode() == null)) {
 				continue;
 			}
 			
-			if(currentViolation.getZipCode().contentEquals(zipCode)) {
-				totalFines += currentViolation.getFineAssessed();
+			if(violation.getZipCode().contentEquals(zipCode)) {
+				totalFines += violation.getFineAssessed();
 			}
 		}
 		
 		
-		/* Estimated fines per household
-		 * 1. Total fines (cost) / property value per zip cod= fines per property value
-		 * 2. Population / Number of residences 
-		 * 3. Total fines / number of people 
-		 * 
-		 *    
-		 */
-		Double estimatedFinesPerHousehold = totalFines / populationToHomeCountAverage;
+		percentageOfFinesToTotalMarketValue = (double)
+				(totalFines / totalResidentialMarketValuePerCapita(zipCode)) * 100.00;
 		
-		esitmatedFinesPerHouseholdMap.put(zipCode, estimatedFinesPerHousehold);
 		
-		return estimatedFinesPerHousehold;
+		percentageOfFinesToTotalMarketValueMap.put(zipCode, percentageOfFinesToTotalMarketValue);
+		
+		return percentageOfFinesToTotalMarketValue;
 	}
 }

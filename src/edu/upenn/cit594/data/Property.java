@@ -1,6 +1,6 @@
 package edu.upenn.cit594.data;
 /**
- * Property Value Data model
+ * Property Data model
  * @author anmorr and ryanng
  *
  */

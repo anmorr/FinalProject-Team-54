@@ -3,7 +3,13 @@ package edu.upenn.cit594.processor;
 import java.util.List;
 
 import edu.upenn.cit594.data.Property;
-
+/**
+ * 
+ * @author ryanng and anmorr
+ * 
+ * Average Total Livable Area Strategy
+ *
+ */
 public class AverageTotalLivableArea implements DataAverage {
 	
 	protected List<Property> propertyList;
@@ -29,8 +35,7 @@ public class AverageTotalLivableArea implements DataAverage {
 					continue;
 				}
 				catch (NullPointerException e) {
-					System.out.println("Property: " + property.getTotalLivableArea() + " Property Zip: " + 
-							property.getZipCode());
+//					
 					continue;
 				}
 				homeCount++;
